@@ -53,7 +53,7 @@ public class Sale {
 				}
 			}
 		}
-		return "Client: " + (Client) client + "\n" + "products:\n" + productNames + "amount=[" + amount + "]\n" + "time=[" + time.format(myFormatObj) + "]";
+		return "Client: " + (Client) client + "\n" + "products:\n" + productNames + "amount=[" + amount + "]\n" + "time=[" + time.format(myFormatObj) + "]" ;
 
 	}
 
