@@ -9,7 +9,6 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-
 public class Shop {
 	private Amount cash = new Amount(100);
 	private static ArrayList<Product> inventory = new ArrayList<Product>();
@@ -21,10 +20,10 @@ public class Shop {
 		Shop shop = new Shop();
 
 		shop.loadInventory();
-		while(!shop.initSesion()) {
+		while (!shop.initSesion()) {
 			continue;
 		}
-		
+
 		Scanner scanner = new Scanner(System.in);
 		int opcion = 0;
 		boolean exit = false;
@@ -109,14 +108,13 @@ public class Shop {
 				String[] name = list[i].split(":");
 				String[] wholeaSalerPrice = list[i + 1].split(":");
 				String[] stock = list[i + 2].split(":");
-				// TODO añadir validacion nombre
-				 Product result  = findProduct(name[1]);
-					if(alreadyExists(name[1]) == false) {						
-						addProduct(new Product(name[1], Double.valueOf(wholeaSalerPrice[1]), true, Integer.valueOf(stock[1])));
-					}else {
-						System.out.println("Producto con mismo nombre");
-					}
-				
+				Product result = findProduct(name[1]);
+				if (alreadyExists(name[1]) == false) {
+					addProduct(
+							new Product(name[1], Double.valueOf(wholeaSalerPrice[1]), true, Integer.valueOf(stock[1])));
+				} else {
+					System.out.println("Producto con mismo nombre");
+				}
 
 			}
 
@@ -141,13 +139,13 @@ public class Shop {
 		Scanner scanner = new Scanner(System.in);
 		System.out.print("Nombre: ");
 		String name = scanner.nextLine();
-		if(alreadyExists(name) == false) {
-		System.out.print("Precio mayorista: ");
-		double wholesalerPrice = scanner.nextDouble();
-		System.out.print("Stock: ");
-		int stock = scanner.nextInt();
-		addProduct(new Product(name, wholesalerPrice, true, stock));
-		}else {
+		if (alreadyExists(name) == false) {
+			System.out.print("Precio mayorista: ");
+			double wholesalerPrice = scanner.nextDouble();
+			System.out.print("Stock: ");
+			int stock = scanner.nextInt();
+			addProduct(new Product(name, wholesalerPrice, true, stock));
+		} else {
 			System.out.println("Nombre del producto ya existe");
 		}
 	}
@@ -209,14 +207,20 @@ public class Shop {
 		// ask for client name
 		ArrayList<Product> products = new ArrayList<Product>();
 		Scanner sc = new Scanner(System.in);
+		System.out.println("Cliente premium? (Y/N)");
+		String answer = sc.next();
+		if (!(answer.equals("Y") || answer.equals("N"))) {
+			System.out.println("Opción no valida.");
+			return;
+		}
 		System.out.println("Realizar venta, escribir nombre cliente");
-		String nameClient = sc.nextLine();
+		String nameClient = sc.next();
 		// sale product until input name is not 0
 		double totalAmount = 0.0;
-		String name = "";	
+		String name = "";
 		while (!name.equals("0")) {
 			System.out.println("Introduce el nombre del producto, escribir 0 para terminar:");
-			name = sc.nextLine();
+			name = sc.next();
 
 			if (name.equals("0")) {
 				break;
@@ -242,16 +246,23 @@ public class Shop {
 			}
 		}
 		LocalDateTime myDateObj = LocalDateTime.now();
-		Client client = new Client (nameClient);
-		Amount total = new Amount (totalAmount);
+		Amount total = new Amount(totalAmount);
 		total.setValue(total.getValue() * TAX_RATE);
-		sales.add(new Sale(client, products, total, myDateObj));
-		// show cost total
-		
 		cash.setValue(total.getValue() + cash.getValue());
 		System.out.println("Venta realizada con éxito, total: " + total);
-		if (!client.pay(total)) {
-			System.out.println("El cliente debe: " + client.getBalance());
+		if (answer.equals("Y")) {
+			PremiumClient premiumClient = new PremiumClient(nameClient);
+			sales.add(new Sale(premiumClient, products, total, myDateObj));
+			if (!premiumClient.pay(total)) {
+				System.out.println("El cliente debe: " + premiumClient.getBalance());
+			}
+			System.out.println("Puntos conseguidos: " + premiumClient.getPoints());
+		} else if (answer.equals("N")) {
+			Client client = new Client(nameClient);
+			sales.add(new Sale(client, products, total, myDateObj));
+			if (!client.pay(total)) {
+				System.out.println("El cliente debe: " + client.getBalance());
+			}
 		}
 	}
 
@@ -294,7 +305,9 @@ public class Shop {
 			LocalDate date = LocalDate.now();
 			try {
 				try {
-					File file = new File("C:\\Users\\Usuario\\eclipse-workspace\\dam2_m03_uf2_poo_shop2 2.0\\src\\files\\" + counter + "_" + date + ".txt");
+					File file = new File(
+							"C:\\Users\\Usuario\\eclipse-workspace\\dam2_m03_uf2_poo_shop2 2.0\\src\\files\\" + counter
+									+ "_" + date + ".txt");
 					if (file.createNewFile()) {
 						System.out.println("File created: " + file.getPath());
 					} else {
@@ -345,7 +358,7 @@ public class Shop {
 	 * 
 	 * @param product name
 	 */
-	public Product findProduct (String name) {
+	public Product findProduct(String name) {
 
 		Product product;
 
@@ -372,22 +385,23 @@ public class Shop {
 		}
 
 	}
-	
+
 	public boolean alreadyExists(String nombre) {
 		if (findProduct(nombre) != null) {
 			return true;
-		}else {
+		} else {
 			return false;
 		}
 	}
+
 	public boolean initSesion() {
-		Scanner scanner = new Scanner (System.in);
+		Scanner scanner = new Scanner(System.in);
 		System.out.println("Introduzca el numero de empleado");
 		int user = scanner.nextInt();
 		System.out.println("Introduzca la contraseña de empleado");
 		String password = scanner.next();
-		Employee employee = new Employee(); 
-		if (employee.login(user, password)){
+		Employee employee = new Employee();
+		if (employee.login(user, password)) {
 			return true;
 		}
 		System.out.println("Datos incorrectos");

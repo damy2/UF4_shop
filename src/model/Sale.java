@@ -10,7 +10,6 @@ public class Sale {
 	LocalDateTime time;
 
 	public Sale(Client client, ArrayList<Product> products , Amount amount, LocalDateTime time) {
-		super();
 		this.client = client;
 		this.products = products;
 		this.amount = amount;
@@ -45,7 +44,7 @@ public class Sale {
 	public String toString() {
 		String productNames ="";
 	    DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-		String client = "\nClient:" +  this.client.getName().toUpperCase() + "\n" ;
+		
 		for (Product product : this.products) {
 			if (product != null) {
 				if (product.getName() != null) {
@@ -54,7 +53,7 @@ public class Sale {
 				}
 			}
 		}
-		return client + "products:\n" + productNames + "amount=[" + amount + "]\n" + "time=[" + time.format(myFormatObj) + "]";
+		return "Client: " + (Client) client + "\n" + "products:\n" + productNames + "amount=[" + amount + "]\n" + "time=[" + time.format(myFormatObj) + "]";
 
 	}
 

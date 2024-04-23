@@ -22,6 +22,7 @@ public class Client extends Person implements Payable {
 	}
 	return true;
 	}
+	
 
 	public int getMember_id() {
 		return member_id;
@@ -38,4 +39,11 @@ public class Client extends Person implements Payable {
 	public void setBalance(Amount balance) {
 		this.balance = balance;
 	}
+
+	@Override
+	public String toString() {
+		return this.getName();
+	}
+	
+	
 }
