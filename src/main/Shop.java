@@ -11,6 +11,14 @@ import java.util.Iterator;
 
 public class Shop {
 	private Amount cash = new Amount(100);
+	public Amount getCash() {
+		return cash;
+	}
+
+	public void setCash(Amount cash) {
+		this.cash = cash;
+	}
+
 	private static ArrayList<Product> inventory = new ArrayList<Product>();
 	private static ArrayList<Sale> sales = new ArrayList<Sale>();
 	private int Stock = 0;
@@ -180,8 +188,8 @@ public class Shop {
 		System.out.print("Seleccione un nombre de producto: ");
 		String name = scanner.next();
 		Product product = findProduct(name);
-		product.expire();
 		if (product != null) {
+			product.expire();
 			System.out.println("El stock del producto " + product.getName() + " ha sido actualizado a "
 					+ product.getPublicPrice());
 
@@ -203,7 +211,7 @@ public class Shop {
 	/**
 	 * make a sale of products to a client
 	 */
-	public void sale() {
+	public void sale() {		
 		// ask for client name
 		ArrayList<Product> products = new ArrayList<Product>();
 		Scanner sc = new Scanner(System.in);
@@ -386,6 +394,10 @@ public class Shop {
 
 	}
 
+	public ArrayList<Product> getInventory() {
+		return inventory;
+	}
+
 	public boolean alreadyExists(String nombre) {
 		if (findProduct(nombre) != null) {
 			return true;
@@ -400,6 +412,8 @@ public class Shop {
 		int user = scanner.nextInt();
 		System.out.println("Introduzca la contraseña de empleado");
 		String password = scanner.next();
+
+		
 		Employee employee = new Employee();
 		if (employee.login(user, password)) {
 			return true;
@@ -407,4 +421,6 @@ public class Shop {
 		System.out.println("Datos incorrectos");
 		return false;
 	}
+	
+
 }
