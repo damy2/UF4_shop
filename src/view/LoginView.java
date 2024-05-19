@@ -5,12 +5,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.IOException;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import model.Employee;
+import exception.LimitLoginException;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -24,6 +26,7 @@ public class LoginView extends JFrame implements ActionListener {
 	private JTextField textField;
 	private JTextField textField_1;
 	private JButton btnNewButton;
+	private int attempts = 0;
 
 	/**
 	 * Launch the application.
@@ -54,12 +57,12 @@ public class LoginView extends JFrame implements ActionListener {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JLabel lblNewLabel = new JLabel("Numero de empleado");
+		JLabel lblNewLabel = new JLabel("Numero de empleado:");
 		lblNewLabel.setBounds(48, 53, 128, 13);
 		contentPane.add(lblNewLabel);
 
-		JLabel lblNewLabel_1 = new JLabel("Password");
-		lblNewLabel_1.setBounds(48, 123, 45, 13);
+		JLabel lblNewLabel_1 = new JLabel("Password:");
+		lblNewLabel_1.setBounds(48, 123, 74, 13);
 		contentPane.add(lblNewLabel_1);
 
 		textField = new JTextField();
@@ -83,32 +86,36 @@ public class LoginView extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnNewButton) {
 			Employee employee = new Employee();
-			if (this.isNumeric(textField.getText())) {
-
+			try {
 				if (employee.login(Integer.valueOf(textField.getText()), textField_1.getText())) {
 					ShopView shopView = new ShopView();
+					JOptionPane.showMessageDialog(LoginView.this, "Login correcto", "Success",
+							JOptionPane.INFORMATION_MESSAGE);
 					shopView.setVisible(true);
 					this.setVisible(false);
 				} else {
-					JOptionPane.showMessageDialog(LoginView.this,"Usuario o password incorrectos","Error", JOptionPane.ERROR_MESSAGE);
+					attempts++;
+					if (attempts == 3) {
+						throw new LimitLoginException(attempts);
+					} else {
+						JOptionPane.showMessageDialog(LoginView.this, "Usuario o password incorrectos", "Error",
+								JOptionPane.ERROR_MESSAGE);
+						textField.setText("");
+						textField_1.setText("");
+					}
 				}
+			} catch (NumberFormatException e1) {
+				JOptionPane.showMessageDialog(LoginView.this, "Introduzca un numero valido", "Error",
+						JOptionPane.ERROR_MESSAGE);
 
+			} catch(LimitLoginException e2) {
+				JOptionPane.showMessageDialog(LoginView.this, e2, "Error",
+						JOptionPane.ERROR_MESSAGE);				
+				dispose();
 			}
+
 		}
 
 	}
-
-	public boolean isNumeric(String strNum) {
-		if (strNum == null) {
-			return false;
-		}
-		try {
-			double d = Double.parseDouble(strNum);
-		} catch (NumberFormatException nfe) {
-			return false;
-		}
-		return true;
-	}
-
 
 }

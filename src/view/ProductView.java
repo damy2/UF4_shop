@@ -27,8 +27,6 @@ public class ProductView extends JDialog implements ActionListener, KeyListener 
 	private JTextField newProductField;
 	private JTextField stockField;
 	private JTextField priceField;
-	private JButton okButton;
-	private JButton cancelButton;
 	private JLabel lblNewLabel;
 	private JLabel lblNewLabel_1;
 	private JLabel lblNewLabel_2;
@@ -38,31 +36,12 @@ public class ProductView extends JDialog implements ActionListener, KeyListener 
 		this.opcion = opcion;
 		setFocusable(true);
 		setTitle("Añadir Producto");
-		setBounds(100, 100, 374, 194);
+		setBounds(100, 100, 427, 241);
 		getContentPane().setLayout(null);
 		this.addKeyListener(this);
-		{
-			JPanel buttonPane = new JPanel();
-			buttonPane.setBounds(0, 123, 366, 31);
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			getContentPane().add(buttonPane);
-			{
-				okButton = new JButton("OK");
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
-				okButton.addActionListener(this);
-			}
-			{
-				cancelButton = new JButton("Cancel");
-				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
-				cancelButton.addActionListener(this);
-			}
-		}
 
 		JPanel contentPanel_1 = new JPanel();
-		contentPanel_1.setBounds(0, 10, 436, 103);
+		contentPanel_1.setBounds(23, 24, 339, 103);
 		getContentPane().add(contentPanel_1);
 		contentPanel_1.setLayout(null);
 		contentPanel_1.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -127,69 +106,6 @@ public class ProductView extends JDialog implements ActionListener, KeyListener 
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == okButton) {
-
-			switch (opcion) {
-
-			case 2:
-
-				if (!shop.alreadyExists(newProductField.getText())) {
-					shop.addProduct(
-							new Product((newProductField.getText()), ((double) Integer.valueOf(stockField.getText())),
-									true, (Integer.valueOf(priceField.getText()))));
-					JOptionPane.showMessageDialog(ProductView.this, "Producto añadido correctamente", "Success",
-							JOptionPane.INFORMATION_MESSAGE);
-					this.setVisible(false);
-				} else {
-					JOptionPane.showMessageDialog(ProductView.this, "Producto ya existente", "Error",
-							JOptionPane.ERROR_MESSAGE);
-				}
-				break;
-			case 3:
-				if (shop.alreadyExists(newProductField.getText())) {
-					Product product = shop.findProduct(newProductField.getText());
-					product.setStock(product.getStock() + Integer.valueOf(stockField.getText()));
-					JOptionPane.showMessageDialog(ProductView.this, "Stock actualizado correctamente", "Success",
-							JOptionPane.INFORMATION_MESSAGE);
-					this.setVisible(false);
-				} else {
-					JOptionPane.showMessageDialog(ProductView.this, "Producto no existe", "Error",
-							JOptionPane.ERROR_MESSAGE);
-				}
-
-				break;
-			case 4:
-				if (shop.alreadyExists(newProductField.getText())) {
-					Product product = shop.findProduct(newProductField.getText());
-					product.expire();
-					JOptionPane.showMessageDialog(ProductView.this, "Expiracion establecida correctamente", "Success",
-							JOptionPane.INFORMATION_MESSAGE);
-					this.setVisible(false);
-				} else {
-					JOptionPane.showMessageDialog(ProductView.this, "Producto no existe", "Error",
-							JOptionPane.ERROR_MESSAGE);
-				}
-				break;
-			case 5:
-				break;
-
-			case 9:
-				if (shop.alreadyExists(newProductField.getText())) {
-					Product product = shop.findProduct(newProductField.getText());
-					shop.getInventory().remove(product);
-					JOptionPane.showMessageDialog(ProductView.this, "Producto eliminado correctamente", "Success",
-							JOptionPane.INFORMATION_MESSAGE);
-					this.setVisible(false);
-				} else {
-					JOptionPane.showMessageDialog(ProductView.this, "Producto no existe", "Error",
-							JOptionPane.ERROR_MESSAGE);
-				}
-				break;
-			}
-
-		} else if (e.getSource() == cancelButton) {
-			this.setVisible(false);
-		}
 
 	}
 

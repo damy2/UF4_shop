@@ -26,7 +26,7 @@ public class SaleView extends JDialog {
 	public SaleView(Shop shop) {
 		setTitle("Sale ");
 		this.shop = shop;
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 324, 245);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
