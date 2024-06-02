@@ -15,7 +15,7 @@ public class DaoImplJDBC implements Dao{
 	@Override
 	public void connect() throws SQLException {
 		// Define connection parameters
-		String url = "jdbc:mysql://localhost:3306/";
+		String url = "jdbc:mysql://localhost:3306/employee";
 		String user = "root";
 		String pass = "";
 		this.connection = DriverManager.getConnection(url, user, pass);
@@ -25,7 +25,7 @@ public class DaoImplJDBC implements Dao{
 	public Employee getEmployee(int emplyeeId, String password) {
 		Employee employee = null;
 		// prepare query
-		String query = "select * from employee where password = ? ";
+		String query = "select * from employee where password = ? and employeeId = ?";
 		
 		try (PreparedStatement ps = connection.prepareStatement(query)) { 
 			// set id to search for
