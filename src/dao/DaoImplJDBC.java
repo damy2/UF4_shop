@@ -29,11 +29,11 @@ public class DaoImplJDBC implements Dao{
 		
 		try (PreparedStatement ps = connection.prepareStatement(query)) { 
 			// set id to search for
-			ps.setInt(1,emplyeeId);
-			ps.setString(2,password);
+			ps.setInt(2,emplyeeId);
+			ps.setString(1,password);
 	        try (ResultSet rs = ps.executeQuery()) {
 	        	if (rs.next()) {
-	        		employee =  new Employee(rs.getInt(1),rs.getString(2));
+	        		employee =  new Employee(emplyeeId,password);
 	        	}
 	        }
 	    } catch (SQLException e) {

@@ -10,7 +10,7 @@ public class Employee extends Person implements main.Logable {
 	private String password;
 //	final int USER = 123;
 //	final String PASSWORD = "test";
-	private Dao dao;
+	private Dao dao = new DaoImplJDBC();
 
 	public Employee() {
 		super();
@@ -19,7 +19,6 @@ public class Employee extends Person implements main.Logable {
 	public Employee(int employeeId, String password) {
 		this.employeeId = employeeId;
 		this.password = password;
-		this.dao = new DaoImplJDBC();
 
 	}
 
