@@ -6,11 +6,18 @@ import java.nio.file.*;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
+
+import dao.Dao;
+import dao.DaoImplFile;
+import dao.DaoImplJDBC;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
+
 public class Shop {
 	private Amount cash = new Amount(100);
+	private DaoImplFile dao = new DaoImplFile();
 	public Amount getCash() {
 		return cash;
 	}
@@ -104,34 +111,47 @@ public class Shop {
 	 * load initial inventory to shop
 	 */
 	public void loadInventory() {
-		Path filePath = Paths.get("src\\files", "inputInventory.txt");
-
-		try
-
-		{
-			String content = Files.readString(filePath);
-			// reading file from given path
-			String[] list = content.split(";");
-			for (int i = 0; i < list.length - 1; i += 3) {
-				String[] name = list[i].split(":");
-				String[] wholeaSalerPrice = list[i + 1].split(":");
-				String[] stock = list[i + 2].split(":");
-				Product result = findProduct(name[1]);
-				if (alreadyExists(name[1]) == false) {
-					addProduct(
-							new Product(name[1], Double.valueOf(wholeaSalerPrice[1]), true, Integer.valueOf(stock[1])));
-				} else {
-					System.out.println("Producto con mismo nombre");
-				}
-
-			}
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	
+		inventory = dao.getInventory();
+		
+		
+		
+//		Path filePath = Paths.get("src\\files", "inputInventory.txt");
+//
+//		try
+//
+//		{
+//			String content = Files.readString(filePath);
+//			// reading file from given path
+//			String[] list = content.split(";");
+//			for (int i = 0; i < list.length - 1; i += 3) {
+//				String[] name = list[i].split(":");
+//				String[] wholeaSalerPrice = list[i + 1].split(":");
+//				String[] stock = list[i + 2].split(":");
+//				Product result = findProduct(name[1]);
+//				if (alreadyExists(name[1]) == false) {
+//					addProduct(
+//							new Product(name[1], Double.valueOf(wholeaSalerPrice[1]), true, Integer.valueOf(stock[1])));
+//				} else {
+//					System.out.println("Producto con mismo nombre");
+//				}
+//
+//			}
+//
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+		
+		
+		
 
 	}
 
+	public boolean writeInventory() {
+		
+		return dao.writeInventory(inventory);
+	}
+	
 	/**
 	 * show current total cash
 	 */

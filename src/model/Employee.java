@@ -44,7 +44,7 @@ public class Employee extends Person implements main.Logable {
 			}
 			return true;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		return false;

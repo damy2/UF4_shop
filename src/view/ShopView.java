@@ -17,6 +17,7 @@ public class ShopView extends JFrame implements ActionListener, KeyListener {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private JButton Opcion0;
 	private JButton Opcion1;
 	private JButton Opcion2;
 	private JButton Opcion3;
@@ -65,64 +66,69 @@ public class ShopView extends JFrame implements ActionListener, KeyListener {
 		contentPane.setLayout(null);
 
 		JLabel lblNewLabel = new JLabel("Seleccione o pulse una opcion:");
-		lblNewLabel.setBounds(61, 26, 195, 28);
+		lblNewLabel.setBounds(147, 0, 148, 28);
 		contentPane.add(lblNewLabel);
 
 		Opcion1 = new JButton("1. Contar caja");
-		Opcion1.setBounds(32, 64, 179, 28);
+		Opcion1.setBounds(29, 35, 179, 28);
 		contentPane.add(Opcion1);
 		Opcion1.addActionListener(this);
 
 		Opcion2 = new JButton("2. Añadir Producto");
-		Opcion2.setBounds(32, 102, 179, 28);
+		Opcion2.setBounds(29, 73, 179, 28);
 		contentPane.add(Opcion2);
 		Opcion2.addActionListener(this);
 
 		Opcion3 = new JButton("3. Añadir stock");
-		Opcion3.setBounds(32, 140, 179, 28);
+		Opcion3.setBounds(29, 111, 179, 28);
 		contentPane.add(Opcion3);
 		Opcion3.addActionListener(this);
 
 		Opcion4 = new JButton("4. Establecer expiracion");
-		Opcion4.setBounds(32, 178, 179, 28);
+		Opcion4.setBounds(29, 149, 179, 28);
 		contentPane.add(Opcion4);
 		Opcion4.addActionListener(this);
 
 		Opcion5 = new JButton("5. Enseñar inventario");
-		Opcion5.setBounds(32, 216, 179, 28);
+		Opcion5.setBounds(29, 187, 179, 28);
 		contentPane.add(Opcion5);
 		Opcion5.addActionListener(this);
 
 		Opcion6 = new JButton("6. Vender");
-		Opcion6.setBounds(221, 64, 179, 28);
+		Opcion6.setBounds(218, 35, 179, 28);
 		contentPane.add(Opcion6);
 		Opcion6.addActionListener(this);
 
 		Opcion7 = new JButton("7. Enseñar ventas");
-		Opcion7.setBounds(219, 102, 179, 28);
+		Opcion7.setBounds(216, 73, 179, 28);
 		contentPane.add(Opcion7);
 		Opcion7.addActionListener(this);
 
 		Opcion8 = new JButton("8. Enseñar ventas totales");
-		Opcion8.setBounds(221, 140, 179, 28);
+		Opcion8.setBounds(218, 111, 179, 28);
 		contentPane.add(Opcion8);
 		Opcion8.addActionListener(this);
 
 		Opcion9 = new JButton("9. Eliminar producto");
-		Opcion9.setBounds(221, 178, 179, 28);
+		Opcion9.setBounds(218, 149, 179, 28);
 		contentPane.add(Opcion9);
 		Opcion9.addActionListener(this);
 
 		Opcion10 = new JButton("10. Salir");
-		Opcion10.setBounds(221, 216, 179, 28);
+		Opcion10.setBounds(218, 187, 179, 28);
 		contentPane.add(Opcion10);
 		Opcion10.addActionListener(this);
+		
+		Opcion0 = new JButton("0. Exportar inventario");
+		Opcion0.setBounds(123, 225, 179, 28);
+		contentPane.add(Opcion0);
+		Opcion0.addActionListener(this);
 
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
+	
 
 	}
 
@@ -160,19 +166,26 @@ public class ShopView extends JFrame implements ActionListener, KeyListener {
 			break;
 
 		}
+		case KeyEvent.VK_0: {
+			exportInventory(shop);
+			break;
+			
+		}
 		}
 
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
+	
 
 	}
 
 	@Override                           
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == Opcion1) {
+		if(e.getSource() == Opcion0) {
+			exportInventory(shop);
+		}else if (e.getSource() == Opcion1) {
 			openCashView();
 		} else if (e.getSource() == Opcion2) {
 			openProductView(2, shop);
@@ -217,4 +230,14 @@ public class ShopView extends JFrame implements ActionListener, KeyListener {
 		saleView.setVisible(true);
 	}
 	
+	public void exportInventory(Shop shop) {
+		if(shop.writeInventory()) {
+			JOptionPane.showMessageDialog(ShopView.this, "Inventario exportado correctamente", "Informacion",
+					JOptionPane.INFORMATION_MESSAGE);
+		}else {
+			JOptionPane.showMessageDialog(ShopView.this, "Error exportando inventario", "Error",
+					JOptionPane.ERROR_MESSAGE);
+		}
+		
+	}
 }
