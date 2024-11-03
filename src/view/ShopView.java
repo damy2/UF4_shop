@@ -167,7 +167,7 @@ public class ShopView extends JFrame implements ActionListener, KeyListener {
 
 		}
 		case KeyEvent.VK_0: {
-			exportInventory(shop);
+			exportInventory();
 			break;
 			
 		}
@@ -184,7 +184,7 @@ public class ShopView extends JFrame implements ActionListener, KeyListener {
 	@Override                           
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == Opcion0) {
-			exportInventory(shop);
+			exportInventory();
 		}else if (e.getSource() == Opcion1) {
 			openCashView();
 		} else if (e.getSource() == Opcion2) {
@@ -230,7 +230,7 @@ public class ShopView extends JFrame implements ActionListener, KeyListener {
 		saleView.setVisible(true);
 	}
 	
-	public void exportInventory(Shop shop) {
+	public void exportInventory() {
 		if(shop.writeInventory()) {
 			JOptionPane.showMessageDialog(ShopView.this, "Inventario exportado correctamente", "Informacion",
 					JOptionPane.INFORMATION_MESSAGE);

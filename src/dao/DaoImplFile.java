@@ -62,7 +62,7 @@ public class DaoImplFile implements Dao {
 	@Override
 	public boolean writeInventory(ArrayList<Product> inventory) {
 		LocalDate date = LocalDate.now();
-		int counter = 0;
+		int counter = 0;	
 		String content = "";
 
 		for (Product product : inventory) {
@@ -76,6 +76,7 @@ public class DaoImplFile implements Dao {
 
 		try {
 			try {
+				
 				File file = new File(
 						"C:\\Users\\Usuario\\eclipse-workspace\\dam2_m03_uf2_poo_shop2 2.0\\src\\files\\inventory_"
 								+ date + ".txt");

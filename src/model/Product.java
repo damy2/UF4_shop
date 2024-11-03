@@ -22,6 +22,10 @@ public class Product {
 		totalProducts++;
 	}
 
+	public Product() {
+	
+	}
+
 	public int getId() {
 		return id;
 	}

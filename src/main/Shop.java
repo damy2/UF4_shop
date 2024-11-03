@@ -7,13 +7,17 @@ import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+
 import dao.Dao;
 import dao.DaoImplFile;
 import dao.DaoImplJDBC;
-
+import dao.xml.SaxReader;
+import org.xml.sax.SAXException;
 import java.util.ArrayList;
 import java.util.Iterator;
-
+import javax.xml.parsers.ParserConfigurationException;
 
 public class Shop {
 	private Amount cash = new Amount(100);
@@ -34,7 +38,22 @@ public class Shop {
 	public static void main(String[] args) {
 		Shop shop = new Shop();
 
-		shop.loadInventory();
+
+		// Read an existing xml document
+		SAXParserFactory factory = SAXParserFactory.newInstance();
+		SAXParser parser;
+		try {
+			parser = factory.newSAXParser();
+			File file = new File ("src/files/inputInventory.xml");
+			SaxReader saxReader = new SaxReader();
+			parser.parse(file, saxReader);
+			inventory = saxReader.getProducts();
+			
+		} catch (ParserConfigurationException | SAXException e) {
+			System.out.println("ERROR creating the parser");
+		} catch (IOException e) {
+			System.out.println("ERROR file not found");
+		}
 		while (!shop.initSesion()) {
 			continue;
 		}
@@ -148,20 +167,12 @@ public class Shop {
 	}
 
 	public boolean writeInventory() {
-		
 		return dao.writeInventory(inventory);
 	}
-	
-	/**
-	 * show current total cash
-	 */
 	private void showCash() {
 		System.out.println("Dinero actual: " + cash);
 	}
 
-	/**
-	 * add a new product to inventory getting data from console
-	 */
 	public void addProduct() {
 
 		Scanner scanner = new Scanner(System.in);
