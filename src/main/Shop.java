@@ -13,6 +13,8 @@ import javax.xml.parsers.SAXParserFactory;
 import dao.Dao;
 import dao.DaoImplFile;
 import dao.DaoImplJDBC;
+import dao.DaoImplXml;
+import dao.xml.DomWriter;
 import dao.xml.SaxReader;
 import org.xml.sax.SAXException;
 import java.util.ArrayList;
@@ -21,7 +23,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 public class Shop {
 	private Amount cash = new Amount(100);
-	private DaoImplFile dao = new DaoImplFile();
+	private DaoImplXml dao = new DaoImplXml();
 	public Amount getCash() {
 		return cash;
 	}
@@ -40,20 +42,8 @@ public class Shop {
 
 
 		// Read an existing xml document
-		SAXParserFactory factory = SAXParserFactory.newInstance();
-		SAXParser parser;
-		try {
-			parser = factory.newSAXParser();
-			File file = new File ("src/files/inputInventory.xml");
-			SaxReader saxReader = new SaxReader();
-			parser.parse(file, saxReader);
-			inventory = saxReader.getProducts();
-			
-		} catch (ParserConfigurationException | SAXException e) {
-			System.out.println("ERROR creating the parser");
-		} catch (IOException e) {
-			System.out.println("ERROR file not found");
-		}
+		
+		shop.loadInventory();
 		while (!shop.initSesion()) {
 			continue;
 		}
