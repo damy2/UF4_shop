@@ -40,15 +40,13 @@ public class DomWriter {
 	public boolean generateDocument(ArrayList<Product> inventory) {
 		//PARENT NODE
 		//root node
-		int id = 1;
 		Element products = document.createElement("products");
 		products.setAttribute("total",Integer.toString(Product.getTotalProducts()));
 		document.appendChild(products);
 		
 		for(Product product : inventory) {
 			Element productElement = document.createElement("product");
-			productElement.setAttribute("id",Integer.toString(id));
-			id++;
+			productElement.setAttribute("id",Integer.toString(product.getId()));
 			products.appendChild(productElement);
 			
 			Element nameElement = document.createElement("name");

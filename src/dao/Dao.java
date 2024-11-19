@@ -9,9 +9,9 @@ import model.Product;
 public interface Dao {
 	Employee getEmployee(int emplyeeId, String password);
 
-	public void connect() throws SQLException;
+	public void connect();
 
-	public void disconnect() throws SQLException;
+	public void disconnect();
 	
 	public ArrayList<Product> getInventory();
 	

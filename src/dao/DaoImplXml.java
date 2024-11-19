@@ -16,7 +16,7 @@ import dao.xml.SaxReader;
 import model.Employee;
 import model.Product;
 
-public class DaoImplXml implements Dao{
+public class DaoImplXml implements Dao {
 
 	@Override
 	public Employee getEmployee(int emplyeeId, String password) {
@@ -25,15 +25,15 @@ public class DaoImplXml implements Dao{
 	}
 
 	@Override
-	public void connect() throws SQLException {
+	public void connect() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
-	public void disconnect() throws SQLException {
+	public void disconnect() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -43,7 +43,7 @@ public class DaoImplXml implements Dao{
 		ArrayList<Product> inventory = new ArrayList<>();
 		try {
 			parser = factory.newSAXParser();
-			File file = new File ("src/files/inputInventory.xml");
+			File file = new File("src/files/inputInventory.xml");
 			SaxReader saxReader = new SaxReader();
 			parser.parse(file, saxReader);
 			inventory = saxReader.getProducts();
@@ -53,14 +53,14 @@ public class DaoImplXml implements Dao{
 			System.out.println("ERROR file not found");
 		}
 		return inventory;
-		
+
 	}
 
 	@Override
 	public boolean writeInventory(ArrayList<Product> inventory) {
 		DomWriter domWriter = new DomWriter();
 		return domWriter.generateDocument(inventory);
-	
+
 	}
 
 }

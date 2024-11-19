@@ -14,14 +14,14 @@ import model.ProductList;
 public class JaxbUnMarshaller {
 	public ArrayList<Product> init() {
 		// read from xml to java object
-		
+
 		ProductList products = null;
 		ArrayList<Product> inventory = new ArrayList<Product>();
 		try {
 			JAXBContext context = JAXBContext.newInstance(ProductList.class);
 			Unmarshaller unmarshaller = context.createUnmarshaller();
 			System.out.println("unmarshalling...");
-			products = (ProductList) unmarshaller.unmarshal(new File("src/files/inputInventory.xml"));
+			products = (ProductList) unmarshaller.unmarshal(new File("jaxb/inputInventory.xml"));
 		} catch (JAXBException e) {
 			e.printStackTrace();
 		}
@@ -31,11 +31,10 @@ public class JaxbUnMarshaller {
 			System.out.println("Error unmarshalling");
 		else {
 			for (Product p : products.getProducts()) {
-				if(p.getWholesalerPrice() != null) {
+				if (p.getWholesalerPrice() != null) {
 					p.setPublicPrice(new Amount(p.getWholesalerPrice().getValue() * 2));
 				}
 				System.out.println(p);
-				System.out.println(p.isAvailable());
 				inventory.add(p);
 			}
 		}

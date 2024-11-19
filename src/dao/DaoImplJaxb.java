@@ -17,13 +17,13 @@ public class DaoImplJaxb implements Dao{
 	}
 
 	@Override
-	public void connect() throws SQLException {
+	public void connect() {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void disconnect() throws SQLException {
+	public void disconnect() {
 		// TODO Auto-generated method stub
 		
 	}

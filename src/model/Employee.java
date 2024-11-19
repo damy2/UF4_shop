@@ -31,8 +31,8 @@ public class Employee extends Person implements main.Logable {
 	}
 
 	public boolean login(int user, String password) {
-		//if (user == USER && password.equals(PASSWORD)) {
-		//	return true;
+		// if (user == USER && password.equals(PASSWORD)) {
+		// return true;
 		// }
 		// return false;
 		try {
@@ -43,8 +43,7 @@ public class Employee extends Person implements main.Logable {
 				return false;
 			}
 			return true;
-		} catch (SQLException e) {
-			
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return false;

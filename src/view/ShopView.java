@@ -118,7 +118,7 @@ public class ShopView extends JFrame implements ActionListener, KeyListener {
 		Opcion10.setBounds(218, 187, 179, 28);
 		contentPane.add(Opcion10);
 		Opcion10.addActionListener(this);
-		
+
 		Opcion0 = new JButton("0. Exportar inventario");
 		Opcion0.setBounds(123, 225, 179, 28);
 		contentPane.add(Opcion0);
@@ -128,7 +128,6 @@ public class ShopView extends JFrame implements ActionListener, KeyListener {
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-	
 
 	}
 
@@ -169,7 +168,7 @@ public class ShopView extends JFrame implements ActionListener, KeyListener {
 		case KeyEvent.VK_0: {
 			exportInventory();
 			break;
-			
+
 		}
 		}
 
@@ -177,15 +176,14 @@ public class ShopView extends JFrame implements ActionListener, KeyListener {
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-	
 
 	}
 
-	@Override                           
+	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == Opcion0) {
+		if (e.getSource() == Opcion0) {
 			exportInventory();
-		}else if (e.getSource() == Opcion1) {
+		} else if (e.getSource() == Opcion1) {
 			openCashView();
 		} else if (e.getSource() == Opcion2) {
 			openProductView(2, shop);
@@ -195,7 +193,7 @@ public class ShopView extends JFrame implements ActionListener, KeyListener {
 			openProductView(4, shop);
 		} else if (e.getSource() == Opcion5) {
 			openInventoryView(shop);
-		} else if (e.getSource() == Opcion6){
+		} else if (e.getSource() == Opcion6) {
 			openSaleView(shop);
 		} else if (e.getSource() == Opcion7) {
 			openProductView(9, shop);
@@ -207,7 +205,7 @@ public class ShopView extends JFrame implements ActionListener, KeyListener {
 			openProductView(9, shop);
 		}
 
-	} 
+	}
 
 	public void openCashView() {
 		CashView CashView = new CashView();
@@ -219,25 +217,25 @@ public class ShopView extends JFrame implements ActionListener, KeyListener {
 		productView.setVisible(true);
 
 	}
-	
+
 	public void openInventoryView(Shop shop) {
 		InventoryView inventoryView = new InventoryView(shop);
 		inventoryView.setVisible(true);
 	}
-	
+
 	public void openSaleView(Shop shop) {
 		SaleView saleView = new SaleView(shop);
 		saleView.setVisible(true);
 	}
-	
+
 	public void exportInventory() {
-		if(shop.writeInventory()) {
+		if (shop.writeInventory()) {
 			JOptionPane.showMessageDialog(ShopView.this, "Inventario exportado correctamente", "Informacion",
 					JOptionPane.INFORMATION_MESSAGE);
-		}else {
+		} else {
 			JOptionPane.showMessageDialog(ShopView.this, "Error exportando inventario", "Error",
 					JOptionPane.ERROR_MESSAGE);
 		}
-		
+
 	}
 }
