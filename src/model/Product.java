@@ -1,5 +1,12 @@
 package model;
 
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
+@XmlRootElement(name="product")
+@XmlType(propOrder= {"id","name","available","wholesalerPrice","publicPrice","stock"})
 public class Product {
 	private int id;
     private String name;
@@ -23,17 +30,20 @@ public class Product {
 	}
 
 	public Product() {
-	
+		this.id = totalProducts+1;
+		this.available = true;
+		totalProducts++;
 	}
 
 	public int getId() {
 		return id;
 	}
 
+	@XmlAttribute(name="id")
 	public void setId(int id) {
 		this.id = id;
 	}
-
+	@XmlAttribute(name="name")
 	public String getName() {
 		return name;
 	}
@@ -43,6 +53,7 @@ public class Product {
 		this.name = name;
 	}
 
+	@XmlElement(name="publicPrice")
 	public Amount getPublicPrice() {
 		return publicPrice;
 	}
@@ -50,7 +61,8 @@ public class Product {
 	public void setPublicPrice(Amount publicPrice) {
 		this.publicPrice = publicPrice;
 	}
-
+	
+	@XmlElement(name="wholesalerPrice")
 	public Amount getWholesalerPrice() {
 		return wholesalerPrice;
 	}
@@ -59,6 +71,7 @@ public class Product {
 		this.wholesalerPrice = wholesalerPrice;
 	}
 
+	@XmlElement(name="available")
 	public boolean isAvailable() {
 		return available;
 	}
@@ -67,6 +80,7 @@ public class Product {
 		this.available = available;
 	}
 
+	@XmlElement(name="stock")
 	public int getStock() {
 		return stock;
 	}

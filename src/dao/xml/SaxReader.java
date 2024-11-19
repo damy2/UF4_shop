@@ -3,7 +3,6 @@ package dao.xml;
 import java.nio.file.*;
 import java.util.ArrayList;
 
-
 import javax.xml.parsers.SAXParser;
 
 import org.xml.sax.SAXException;
@@ -14,12 +13,8 @@ import model.Product;
 
 import org.xml.sax.Attributes;
 
+public class SaxReader extends DefaultHandler {
 
-
-
-
-public class SaxReader extends DefaultHandler{
-	
 	ArrayList<Product> products;
 	Product product;
 	String value;
@@ -43,7 +38,7 @@ public class SaxReader extends DefaultHandler{
 	public void startDocument() throws SAXException {
 		this.products = new ArrayList<>();
 	}
-	
+
 	@Override
 	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
 		switch (qName) {
@@ -63,7 +58,7 @@ public class SaxReader extends DefaultHandler{
 			break;
 		case "wholesalerPrice":
 			this.product.setWholesalerPrice(new Amount(Double.valueOf(value)));
-			this.product.setPublicPrice(new Amount(Double.valueOf(value)*2));
+			this.product.setPublicPrice(new Amount(Double.valueOf(value) * 2));
 			break;
 		case "stock":
 			this.product.setStock(Integer.valueOf(value));
@@ -74,10 +69,10 @@ public class SaxReader extends DefaultHandler{
 	@Override
 	public void endElement(String uri, String localName, String qName) throws SAXException {
 		// we add the product into the arrayList
-		if (qName.equals("product"))
-			
+		if (qName.equals("product")) {
 			this.products.add(product);
-		this.parsedElement = "";
+			this.parsedElement = "";
+		}
 	}
 
 	@Override
@@ -89,5 +84,5 @@ public class SaxReader extends DefaultHandler{
 		for (Product p : products) {
 			System.out.println(p.toString());
 		}
-	}      
+	}
 }

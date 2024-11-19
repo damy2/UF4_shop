@@ -13,6 +13,7 @@ import javax.xml.parsers.SAXParserFactory;
 import dao.Dao;
 import dao.DaoImplFile;
 import dao.DaoImplJDBC;
+import dao.DaoImplJaxb;
 import dao.DaoImplXml;
 import dao.xml.DomWriter;
 import dao.xml.SaxReader;
@@ -23,7 +24,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 public class Shop {
 	private Amount cash = new Amount(100);
-	private DaoImplXml dao = new DaoImplXml();
+	private DaoImplJaxb dao = new DaoImplJaxb();
 	public Amount getCash() {
 		return cash;
 	}
@@ -47,6 +48,7 @@ public class Shop {
 		while (!shop.initSesion()) {
 			continue;
 		}
+	shop.writeInventory();
 
 		Scanner scanner = new Scanner(System.in);
 		int opcion = 0;
