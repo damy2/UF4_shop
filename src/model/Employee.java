@@ -4,13 +4,14 @@ import java.sql.SQLException;
 
 import dao.Dao;
 import dao.DaoImplJDBC;
+import dao.DaoImplMongoDB;
 
 public class Employee extends Person implements main.Logable {
 	private int employeeId;
 	private String password;
 //	final int USER = 123;
 //	final String PASSWORD = "test";
-	private Dao dao = new DaoImplJDBC();
+	private Dao dao = new DaoImplMongoDB();
 
 	public Employee() {
 		super();
@@ -31,14 +32,8 @@ public class Employee extends Person implements main.Logable {
 	}
 
 	public boolean login(int user, String password) {
-		// if (user == USER && password.equals(PASSWORD)) {
-		// return true;
-		// }
-		// return false;
 		try {
-			dao.connect();
 			Employee employee = dao.getEmployee(user, password);
-			dao.disconnect();
 			if (employee == null) {
 				return false;
 			}

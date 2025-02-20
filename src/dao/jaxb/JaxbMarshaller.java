@@ -12,16 +12,17 @@ import view.LoginView;
 import model.Product;
 import model.ProductList;
 
-public class JaxbMarshaller {
 
-	public boolean init(ArrayList<Product> inventory) {
+public class JaxbMarshaller {
+	
+	public boolean init (ArrayList<Product> inventory) {
 		LocalDate date = LocalDate.now();
 		try {
 			JAXBContext context = JAXBContext.newInstance(ProductList.class);
 			Marshaller marshaller = context.createMarshaller();
 			System.out.println("marshalling... ");
 			ProductList products = createXml(inventory);
-			marshaller.marshal(products, new File("jaxb/inventory_" + date + ".xml"));
+			marshaller.marshal(products,new File("jaxb/inventory_" + date + ".xml"));
 			return true;
 		} catch (JAXBException e) {
 			e.printStackTrace();
@@ -30,11 +31,12 @@ public class JaxbMarshaller {
 	}
 
 	private ProductList createXml(ArrayList<Product> inventory) {
-
+		
+		
 		// print products
 		for (Product p : inventory) {
 			System.out.println(p);
 		}
-		return new ProductList(inventory, inventory.size());
+		return new ProductList(inventory,inventory.size());
 	}
 }

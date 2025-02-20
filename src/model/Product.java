@@ -1,5 +1,13 @@
 package model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -7,12 +15,24 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement(name="product")
 @XmlType(propOrder= {"id","name","available","wholesalerPrice","publicPrice","stock"})
+@Entity
+@Table(name="Product")
 public class Product {
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY) //with this tag we make the id auto_increment
+	@Column(name = "id", unique = true, nullable = true)
 	private int id;
+	
+	@Column
     private String name;
+	@Column
+	private double price;
     private Amount publicPrice;
     private Amount wholesalerPrice;
+	@Column
     private boolean available;
+	@Column(name = "stock")		
     private int stock;
     private static int totalProducts;
     

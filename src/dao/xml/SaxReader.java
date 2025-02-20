@@ -1,5 +1,6 @@
 package dao.xml;
 
+import java.io.File;
 import java.nio.file.*;
 import java.util.ArrayList;
 
@@ -25,6 +26,7 @@ public class SaxReader extends DefaultHandler {
 	 */
 	public ArrayList<Product> getProducts() {
 		return products;
+			
 	}
 
 	/**

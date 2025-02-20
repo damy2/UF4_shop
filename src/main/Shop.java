@@ -12,8 +12,10 @@ import javax.xml.parsers.SAXParserFactory;
 
 import dao.Dao;
 import dao.DaoImplFile;
+import dao.DaoImplHibernate;
 import dao.DaoImplJDBC;
 import dao.DaoImplJaxb;
+import dao.DaoImplMongoDB;
 import dao.DaoImplXml;
 import dao.xml.DomWriter;
 import dao.xml.SaxReader;
@@ -24,7 +26,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 public class Shop {
 	private Amount cash = new Amount(100);
-	private DaoImplJaxb dao = new DaoImplJaxb();
+	private DaoImplMongoDB dao = new DaoImplMongoDB();
 	public Amount getCash() {
 		return cash;
 	}
@@ -39,9 +41,9 @@ public class Shop {
 	final static double TAX_RATE = 1.04;
 
 	public static void main(String[] args) {
+		
 		Shop shop = new Shop();
-
-
+		
 		// Read an existing xml document
 		
 		shop.loadInventory();
@@ -195,6 +197,7 @@ public class Shop {
 			System.out.print("Seleccione la cantidad a añadir: ");
 			Stock = scanner.nextInt();
 			// update stock product
+			dao.updateProduct(product,Stock);
 			product.setStock(product.getStock() + Stock);
 			System.out.println("El stock del producto " + name + " ha sido actualizado a " + product.getStock());
 
@@ -364,7 +367,7 @@ public class Shop {
 	 * @param product
 	 */
 	public void addProduct(Product product) {
-
+		dao.addProduct(product);
 		inventory.add(product);
 	}
 
@@ -409,6 +412,7 @@ public class Shop {
 		String name = scanner.next();
 		Product product = findProduct(name);
 		if (product != null) {
+			dao.removeProduct(product);
 			inventory.remove(product);
 			System.out.println("Producto eliminado");
 		} else {

@@ -17,7 +17,7 @@ public class DaoImplJDBC implements Dao {
 	@Override
 	public void connect() {
 		// Define connection parameters
-		String url = "jdbc:mysql://localhost:3306/employee";
+		String url = "jdbc:mysql://localhost:3306/employee1";
 		String user = "root";
 		String pass = "";
 		try {
