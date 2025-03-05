@@ -78,4 +78,22 @@ public class DaoImplHibernate implements Dao {
 		return false;
 	}
 
+	@Override
+	public void updateProduct(Product product, int stock) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void removeProduct(Product product) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addProduct(Product product) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -26,7 +26,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 public class Shop {
 	private Amount cash = new Amount(100);
-	private DaoImplMongoDB dao = new DaoImplMongoDB();
+	private Dao dao = new DaoImplJDBC();
 	public Amount getCash() {
 		return cash;
 	}
@@ -124,7 +124,7 @@ public class Shop {
 	 * load initial inventory to shop
 	 */
 	public void loadInventory() {
-	
+		dao.connect();
 		inventory = dao.getInventory();
 		
 		
