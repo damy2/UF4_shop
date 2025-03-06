@@ -18,7 +18,9 @@ import javax.persistence.Table;
 @Entity  //Specifies that this corresponts to a Database table.
 @Table(name= "historical_inventory") 
 public class ProductHistory {
-	
+		
+
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY) //with this tag we make the id auto_increment
 	@Column(name = "id", unique = true, nullable = true) //with this tag we specify the atributes
@@ -31,23 +33,78 @@ public class ProductHistory {
     @Column(name = "stock")	
 	private int Stock;
 	
-	@Column(name = "product_id")
-	private Double price;
+	@Column
+	private double price;
 	
 	//This specifies that for every instance of this class we have many of the other
-    @Column(name = "product_id")
+    @Column
 	private boolean avaible; 
 
 	@Column(name = "created_at")
 	private Date createdAt;
 	
 	@Column(name = "product_id")
-	private Product product;
+	private int productid;
 
 	public ProductHistory(){} 
 	 
 	public ProductHistory(Product product) {
 		this.createdAt = new Date();
-		this.product = product;
+		this.productid = product.getId();
+	}
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getStock() {
+		return Stock;
+	}
+
+	public void setStock(int stock) {
+		Stock = stock;
+	}
+
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
+	public boolean isAvaible() {
+		return avaible;
+	}
+
+	public void setAvaible(boolean avaible) {
+		this.avaible = avaible;
+	}
+
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public int getProductid() {
+		return productid;
+	}
+
+	public void setProductid(int productid) {
+		this.productid = productid;
 	}
 }

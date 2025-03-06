@@ -142,7 +142,7 @@ public class DaoImplMongoDB implements Dao {
 
 	public void updateProduct(Product product, int stock) {
 		collection = mongoDatabase.getCollection("inventory");
-		UpdateResult result = collection.updateOne(eq("id", product.getId()),set("stock", stock+product.getStock()));
+		UpdateResult result = collection.updateOne(eq("id", product.getId()),set("stock",product.getStock()));
 
 	}
 

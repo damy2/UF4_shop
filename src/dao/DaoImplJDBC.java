@@ -71,7 +71,7 @@ public class DaoImplJDBC implements Dao {
 			// set id to search for
 			try (ResultSet rs = ps.executeQuery()) {
 				while (rs.next()) {
-					Product product = new Product(rs.getString("name"),rs.getInt("price"),rs.getBoolean("avaible"),rs.getInt("stock"));
+					Product product = new Product(rs.getString("name"),rs.getInt("price"),rs.getBoolean("available"),rs.getInt("stock"));
 					products.add(product);
 				}
 			}
@@ -85,7 +85,7 @@ public class DaoImplJDBC implements Dao {
 	@Override
 	public boolean writeInventory(ArrayList<Product> inventory) {
 		
-		String query = "insert into historical_inventory (id,available,price,stock,name) values (?,?,?,?,?)";
+		String query = "insert into historical_inventory (id,avaible,price,stock,name) values (?,?,?,?,?)";
 		
 		
 		try (PreparedStatement ps = connection.prepareStatement(query)) {
@@ -121,7 +121,7 @@ public class DaoImplJDBC implements Dao {
 		
 		
 		try (PreparedStatement ps = connection.prepareStatement(query)) {
-			ps.setInt(1, product.getStock()+stock);
+			ps.setInt(1, product.getStock());
 			ps.setInt(2,product.getId());
 			ps.execute();
 		} catch (SQLException e) {
@@ -150,7 +150,7 @@ public class DaoImplJDBC implements Dao {
 
 	@Override
 	public void addProduct(Product product) {
-		String query = "insert into inventory (id,avaible,price,stock,name) values (?,?,?,?,?)";
+		String query = "insert into inventory (id,available,price,stock,name) values (?,?,?,?,?)";
 		
 		try (PreparedStatement ps = connection.prepareStatement(query)) {
 			ps.setInt(1, product.getId());

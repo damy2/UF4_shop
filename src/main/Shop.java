@@ -26,7 +26,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 public class Shop {
 	private Amount cash = new Amount(100);
-	private Dao dao = new DaoImplJDBC();
+	private Dao dao = new DaoImplMongoDB();
 	public Amount getCash() {
 		return cash;
 	}
@@ -197,8 +197,8 @@ public class Shop {
 			System.out.print("Seleccione la cantidad a añadir: ");
 			Stock = scanner.nextInt();
 			// update stock product
-			dao.updateProduct(product,Stock);
 			product.setStock(product.getStock() + Stock);
+			dao.updateProduct(product,Stock);
 			System.out.println("El stock del producto " + name + " ha sido actualizado a " + product.getStock());
 
 		} else {
